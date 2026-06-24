@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Diagnóstico O Seu Lugar® — Jornada Masculina. Descubra em qual etapa da sua jornada emocional como homem você está." />
+  <title>Diagnóstico O Seu Lugar® — Jornada Masculina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #005A08; --green-dark: #003F05; --green-deep: #002E04;
+      --gold: #D7C26B; --gold-dark: #BFA853; --white: #FFFFFF;
+      --cream: #F8F5EA; --text: #1F241F; --muted: #5E665D;
+      --line: rgba(0, 90, 8, 0.16); --shadow: 0 20px 70px rgba(0, 63, 5, 0.16);
+      --danger: #9A3535;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", sans-serif; color: var(--text); line-height: 1.62; min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(215,194,107,.22), transparent 30%),
+                  linear-gradient(180deg, #FFFFFF 0%, var(--cream) 48%, #ECE3CC 100%);
+    }
+    .wrap { width: min(1100px, 92%); margin: 0 auto; }
+    .hero {
+      background: linear-gradient(135deg, rgba(0,90,8,.97), rgba(0,46,4,.98)),
+                  radial-gradient(circle at 82% 18%, rgba(215,194,107,.20), transparent 32%);
+      color: white; padding: clamp(42px, 7vw, 86px) 0; border-bottom: 4px solid var(--gold);
+    }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 34px; align-items: center; }
+    .badge {
+      display:inline-flex; width:fit-content; padding:8px 14px; border-radius:999px;
+      background:rgba(215,194,107,.12); color:var(--gold); border:1px solid rgba(215,194,107,.34);
+      font-size:.82rem; font-weight:900; letter-spacing:.04em; text-transform:uppercase; margin-bottom:18px;
+    }
+    h1,h2 { font-family:"Playfair Display",serif; line-height:1.05; letter-spacing:-.035em; }
+    h1 { font-size:clamp(2.55rem,6vw,5.1rem); max-width:900px; margin-bottom:18px; }
+    h2 { font-size:clamp(1.75rem,3vw,2.55rem); margin-bottom:16px; }
+    .lead { color:rgba(255,255,255,.88); font-size:clamp(1.05rem,2vw,1.28rem); max-width:790px; margin-bottom:18px; }
+    .highlight { color:var(--gold); font-weight:900; }
+    .copy { color:rgba(255,255,255,.82); display:grid; gap:12px; max-width:790px; }
+    .cta-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:24px 0 0; }
+    .btn {
+      appearance:none; border:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+      text-align:center; text-decoration:none; min-height:54px; padding:16px 22px; border-radius:999px;
+      background:linear-gradient(90deg,var(--gold-dark),var(--gold)); color:var(--green-deep);
+      font-weight:900; letter-spacing:.02em; box-shadow:0 16px 36px rgba(215,194,107,.24); transition:.2s ease;
+    }
+    .btn:hover { transform:translateY(-1px); filter:brightness(1.03); }
+    .note { color:rgba(255,255,255,.82); font-weight:800; font-size:.95rem; }
+    .hero-panel {
+      background:rgba(255,255,255,.09); border:1px solid rgba(215,194,107,.24); border-radius:24px;
+      padding:24px; box-shadow:0 20px 60px rgba(0,0,0,.14);
+    }
+    .hero-panel h2 { color:white; font-size:clamp(1.55rem,2.6vw,2.15rem); margin-bottom:12px; }
+    .hero-panel p { color:rgba(255,255,255,.84); margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,.12); padding-bottom:10px; }
+    .hero-panel p:last-child { border-bottom:none; padding-bottom:0; margin-bottom:0; }
+    .section { padding:28px 0 0; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+    .panel {
+      background:rgba(255,255,255,.92); border:1px solid var(--line); border-radius:28px;
+      padding:clamp(22px,3vw,34px); box-shadow:0 14px 48px rgba(0,63,5,.07);
+    }
+    .panel h2 { color:var(--green-dark); }
+    .list { display:grid; gap:10px; color:var(--muted); }
+    .list p { padding:12px 14px; border-radius:16px; background:#FBF9F0; border:1px solid rgba(0,90,8,.10); }
+    .notice {
+      margin-top:18px; padding:18px; border-radius:18px; background:rgba(215,194,107,.18);
+      border:1px solid rgba(191,168,83,.35); border-left:5px solid var(--gold-dark);
+      color:var(--text); font-weight:650;
+    }
+    .quiz-card {
+      margin-top:26px; background:rgba(255,255,255,.95); border:1px solid var(--line);
+      border-radius:30px; box-shadow:var(--shadow); overflow:hidden;
+    }
+    .quiz-header { padding:28px 30px 20px; background:linear-gradient(135deg,#FFFFFF,#F7F3E5); border-bottom:1px solid var(--line); }
+    .quiz-header h2 { color:var(--green-dark); }
+    .quiz-header p { color:var(--muted); max-width:760px; }
+    .progress-wrap {
+      position:sticky; top:0; z-index:10; padding:16px 30px; background:rgba(255,255,255,.96);
+      backdrop-filter:blur(10px); border-bottom:1px solid var(--line);
+    }
+    .progress-info { display:flex; justify-content:space-between; gap:12px; color:var(--green-dark); font-size:.92rem; font-weight:900; margin-bottom:10px; }
+    .progress { height:10px; background:#E8E2C9; border-radius:999px; overflow:hidden; }
+    .progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--green),var(--gold)); transition:width .24s ease; }
+    .questions { padding:26px 30px 30px; }
+    .instruction {
+      color:var(--green-dark); font-weight:800; margin-bottom:20px; padding:14px 16px; border-radius:16px;
+      background:rgba(215,194,107,.18); border:1px solid rgba(191,168,83,.35);
+    }
+    .question { padding:22px; border:1px solid var(--line); border-radius:22px; background:#FFFFFF; margin-bottom:18px; box-shadow:0 10px 28px rgba(0,63,5,.05); }
+    .question-top span { display:inline-flex; margin-bottom:8px; color:var(--gold-dark); font-weight:900; font-size:.80rem; text-transform:uppercase; letter-spacing:.08em; }
+    .question h3 { font-size:1.08rem; line-height:1.45; margin-bottom:15px; color:var(--text); }
+    .options { display:grid; gap:10px; }
+    .option { display:flex; gap:12px; align-items:flex-start; padding:14px; border-radius:15px; border:1px solid var(--line); background:#FBF9F0; color:var(--muted); cursor:pointer; transition:.18s ease; }
+    .option:hover { background:#F2ECD8; border-color:rgba(0,90,8,.28); color:var(--text); }
+    .option input { margin-top:5px; accent-color:var(--green); flex:0 0 auto; }
+    .option b { color:var(--green-dark); }
+    .option.selected { background:rgba(215,194,107,.22); border-color:rgba(0,90,8,.44); color:var(--text); box-shadow:0 8px 20px rgba(0,90,8,.08); }
+    .result-button-wrap { margin-top:12px; text-align:center; }
+    .check-btn { width:min(430px,100%); background:linear-gradient(90deg,var(--green-dark),var(--green)); color:white; box-shadow:0 16px 36px rgba(0,90,8,.18); }
+    .error { display:none; color:var(--danger); background:rgba(154,53,53,.07); border:1px solid rgba(154,53,53,.2); padding:14px; border-radius:14px; margin-top:16px; font-weight:800; text-align:center; }
+    .result-box { display:none; margin-top:28px; padding:clamp(22px,3vw,32px); border-radius:28px; background:linear-gradient(135deg,rgba(0,90,8,.96),rgba(0,46,4,.98)); color:white; border:2px solid rgba(215,194,107,.52); box-shadow:0 18px 50px rgba(0,90,8,.20); }
+    .result-box h2 { color:white; }
+    .result-box p { color:rgba(255,255,255,.86); margin-bottom:12px; }
+    .mini-result { margin:18px 0; padding:16px; border-radius:18px; background:rgba(255,255,255,.09); border:1px solid rgba(215,194,107,.26); }
+    .mini-result p { margin-bottom:8px; }
+    .mini-result strong { color:var(--gold); }
+    .truth { font-size:1.05rem; font-weight:800; color:white !important; padding:16px; border-radius:18px; background:rgba(215,194,107,.12); border:1px solid rgba(215,194,107,.25); }
+    .whatsapp { width:100%; margin-top:14px; background:linear-gradient(90deg,var(--gold-dark),var(--gold)); color:var(--green-deep); box-shadow:0 16px 36px rgba(215,194,107,.23); }
+    .about { margin-top:26px; }
+    .about .copy { color:var(--muted); }
+    .footer { margin-top:32px; text-align:center; padding:34px 0 24px; color:rgba(255,255,255,.82); font-size:.95rem; background:var(--green); border-top:3px solid var(--gold); }
+    .footer .footer-brand { color:var(--gold); font-weight:900; margin-bottom:7px; }
+    .footer strong { color:white; }
+    @media (max-width:860px) { .hero-grid,.two-col { grid-template-columns:1fr; } }
+    @media (max-width:640px) {
+      .wrap { width:94%; } .hero { padding:34px 0; } .hero-panel,.panel,.quiz-card { border-radius:22px; }
+      .hero-panel,.panel { padding:20px 16px; } .quiz-header,.progress-wrap,.questions { padding-left:16px; padding-right:16px; }
+      .question { padding:17px 13px; } .option { padding:13px 12px; } .btn { width:100%; } .note { width:100%; text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="badge">Diagnóstico O Seu Lugar® — Jornada Masculina</div>
+          <h1>Descubra em qual etapa da sua jornada emocional como homem você está</h1>
+          <p class="lead">Em menos de 3 minutos você vai descobrir qual lugar emocional está influenciando seus relacionamentos, suas decisões e a forma como você tem conduzido sua vida.</p>
+          <div class="cta-row">
+            <a href="#diagnostico" class="btn">Começar diagnóstico</a>
+            <span class="note">Leva menos de 3 minutos.</span>
+          </div>
+          <div class="copy" style="margin-top:26px;">
+            <p>Todo homem atravessa fases diferentes ao longo da vida.</p>
+            <p>Alguns ainda buscam aprovação. Outros se afastam emocionalmente. Alguns vivem em constante estado de defesa. Outros carregam responsabilidades demais.</p>
+            <p>E alguns começam a retornar para o seu lugar.</p>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <h2>O que você vai descobrir</h2>
+          <p>O lugar emocional que mais influencia suas escolhas hoje.</p>
+          <p>Como isso impacta seus relacionamentos e decisões.</p>
+          <p>O que também apareceu no seu resultado.</p>
+          <p>Qual pode ser o próximo passo da sua jornada.</p>
+        </aside>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap two-col">
+        <div class="panel">
+          <h2>Talvez você se reconheça aqui</h2>
+          <div class="list">
+            <p>Você sente que carrega mais peso do que deveria.</p>
+            <p>Tem dificuldade de pedir ajuda.</p>
+            <p>Está cansado, mas continua seguindo em frente.</p>
+            <p>Sente que ninguém entende o que acontece dentro de você.</p>
+            <p>Percebe que algo precisa mudar, mas não sabe exatamente o quê.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Importante</h2>
+          <div class="notice">Este diagnóstico não mede o seu valor como homem. Ele apenas revela o lugar emocional que está influenciando suas escolhas com mais força neste momento.</div>
+          <div class="notice">Você não precisa se tornar outro homem. Você precisa voltar para o seu lugar.</div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="diagnostico">
+      <div class="wrap">
+        <div class="quiz-card">
+          <div class="quiz-header">
+            <h2>Responda às perguntas abaixo</h2>
+            <p>Escolha a resposta que mais se aproxima da sua realidade hoje. Não existem respostas certas ou erradas.</p>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-info"><span>Diagnóstico em andamento</span><span id="progressText">0 de 10 respondidas</span></div>
+            <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+          </div>
+          <form id="quizForm" class="questions">
+            <div class="instruction">Não responda como você gostaria de ser. Responda como você realmente tem vivido nos últimos meses.</div>
+            
+          <article class="question">
+            <div class="question-top"><span>Pergunta 1 de 10</span></div>
+            <h3>Quando algo dá errado na sua vida, qual costuma ser sua reação?</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q0" value="0" data-answer="Resolver sozinho e não incomodar ninguém." data-scores="provedor:1;guerreiro:1">
+                <span><b>A)</b> Resolver sozinho e não incomodar ninguém.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q0" value="1" data-answer="Assumir a responsabilidade e carregar o problema nas costas." data-scores="provedor:2">
+                <span><b>B)</b> Assumir a responsabilidade e carregar o problema nas costas.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q0" value="2" data-answer="Conversar com alguém de confiança para buscar clareza." data-scores="lugar:2">
+                <span><b>C)</b> Conversar com alguém de confiança para buscar clareza.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q0" value="3" data-answer="Esperar mais um pouco antes de tomar uma decisão." data-scores="aprovacao:2">
+                <span><b>D)</b> Esperar mais um pouco antes de tomar uma decisão.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 2 de 10</span></div>
+            <h3>No seu relacionamento ou na sua família, você sente que:</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q1" value="0" data-answer="Precisa dar conta de tudo." data-scores="provedor:2">
+                <span><b>A)</b> Precisa dar conta de tudo.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q1" value="1" data-answer="Tem coisas que gostaria de falar, mas acaba guardando." data-scores="desconectado:2">
+                <span><b>B)</b> Tem coisas que gostaria de falar, mas acaba guardando.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q1" value="2" data-answer="Existe espaço para diálogo e troca." data-scores="lugar:2">
+                <span><b>C)</b> Existe espaço para diálogo e troca.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q1" value="3" data-answer="Muitas vezes gostaria de receber mais atenção ou reconhecimento." data-scores="aprovacao:2">
+                <span><b>D)</b> Muitas vezes gostaria de receber mais atenção ou reconhecimento.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 3 de 10</span></div>
+            <h3>Qual dessas frases mais parece descrever sua vida hoje?</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q2" value="0" data-answer="Estou cansado de carregar tantas responsabilidades." data-scores="provedor:2">
+                <span><b>A)</b> Estou cansado de carregar tantas responsabilidades.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q2" value="1" data-answer="Ninguém realmente sabe o que acontece dentro de mim." data-scores="desconectado:2">
+                <span><b>B)</b> Ninguém realmente sabe o que acontece dentro de mim.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q2" value="2" data-answer="Estou construindo uma fase mais consciente da minha vida." data-scores="lugar:2">
+                <span><b>C)</b> Estou construindo uma fase mais consciente da minha vida.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q2" value="3" data-answer="Ainda tenho dificuldade para confiar em mim em algumas decisões." data-scores="aprovacao:2">
+                <span><b>D)</b> Ainda tenho dificuldade para confiar em mim em algumas decisões.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 4 de 10</span></div>
+            <h3>Quando alguém te decepciona, você normalmente:</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q3" value="0" data-answer="Se afasta." data-scores="desconectado:2">
+                <span><b>A)</b> Se afasta.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q3" value="1" data-answer="Reage ou se irrita." data-scores="guerreiro:2">
+                <span><b>B)</b> Reage ou se irrita.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q3" value="2" data-answer="Procura entender antes de agir." data-scores="lugar:2">
+                <span><b>C)</b> Procura entender antes de agir.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q3" value="3" data-answer="Guarda aquilo por muito tempo." data-scores="aprovacao:1;desconectado:1">
+                <span><b>D)</b> Guarda aquilo por muito tempo.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 5 de 10</span></div>
+            <h3>O que mais pesa para você hoje?</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q4" value="0" data-answer="O excesso de responsabilidades." data-scores="provedor:2">
+                <span><b>A)</b> O excesso de responsabilidades.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q4" value="1" data-answer="A dificuldade de me abrir emocionalmente." data-scores="desconectado:2">
+                <span><b>B)</b> A dificuldade de me abrir emocionalmente.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q4" value="2" data-answer="O desejo de evoluir e crescer." data-scores="lugar:2">
+                <span><b>C)</b> O desejo de evoluir e crescer.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q4" value="3" data-answer="O medo de tomar algumas decisões importantes." data-scores="aprovacao:2">
+                <span><b>D)</b> O medo de tomar algumas decisões importantes.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 6 de 10</span></div>
+            <h3>Quando precisa tomar uma decisão importante:</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q5" value="0" data-answer="Assumo tudo sozinho." data-scores="provedor:1;guerreiro:1">
+                <span><b>A)</b> Assumo tudo sozinho.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q5" value="1" data-answer="Fico dividido por bastante tempo." data-scores="desconectado:1;aprovacao:1">
+                <span><b>B)</b> Fico dividido por bastante tempo.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q5" value="2" data-answer="Assumo a responsabilidade pela escolha." data-scores="lugar:2">
+                <span><b>C)</b> Assumo a responsabilidade pela escolha.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q5" value="3" data-answer="Procuro alguém para confirmar que estou fazendo a coisa certa." data-scores="aprovacao:2">
+                <span><b>D)</b> Procuro alguém para confirmar que estou fazendo a coisa certa.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 7 de 10</span></div>
+            <h3>Sobre demonstrar sentimentos:</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q6" value="0" data-answer="Evito falar sobre isso." data-scores="desconectado:2">
+                <span><b>A)</b> Evito falar sobre isso.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q6" value="1" data-answer="Só demonstro quando chego ao limite." data-scores="guerreiro:1;desconectado:1">
+                <span><b>B)</b> Só demonstro quando chego ao limite.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q6" value="2" data-answer="Tenho conseguido falar mais sobre o que sinto." data-scores="lugar:2">
+                <span><b>C)</b> Tenho conseguido falar mais sobre o que sinto.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q6" value="3" data-answer="Tenho medo de não ser compreendido." data-scores="aprovacao:1;desconectado:1">
+                <span><b>D)</b> Tenho medo de não ser compreendido.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 8 de 10</span></div>
+            <h3>Qual destas frases mais representa você?</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q7" value="0" data-answer="Se eu não resolver, ninguém resolve." data-scores="provedor:2">
+                <span><b>A)</b> Se eu não resolver, ninguém resolve.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q7" value="1" data-answer="Não gosto de mostrar minhas fraquezas." data-scores="guerreiro:2">
+                <span><b>B)</b> Não gosto de mostrar minhas fraquezas.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q7" value="2" data-answer="Tenho buscado viver com mais consciência." data-scores="lugar:2">
+                <span><b>C)</b> Tenho buscado viver com mais consciência.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q7" value="3" data-answer="Às vezes sinto que ainda preciso provar meu valor." data-scores="aprovacao:2">
+                <span><b>D)</b> Às vezes sinto que ainda preciso provar meu valor.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 9 de 10</span></div>
+            <h3>Em relação à sua vida hoje:</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q8" value="0" data-answer="Estou carregando mais peso do que deveria." data-scores="provedor:2">
+                <span><b>A)</b> Estou carregando mais peso do que deveria.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q8" value="1" data-answer="Estou me afastando de algumas pessoas." data-scores="desconectado:2">
+                <span><b>B)</b> Estou me afastando de algumas pessoas.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q8" value="2" data-answer="Estou construindo uma nova fase." data-scores="lugar:2">
+                <span><b>C)</b> Estou construindo uma nova fase.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q8" value="3" data-answer="Ainda me sinto inseguro em algumas áreas da minha vida." data-scores="aprovacao:2">
+                <span><b>D)</b> Ainda me sinto inseguro em algumas áreas da minha vida.</span>
+              </label>
+            </div>
+          </article>
+          <article class="question">
+            <div class="question-top"><span>Pergunta 10 de 10</span></div>
+            <h3>O que você mais deseja neste momento?</h3>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q9" value="0" data-answer="Ter menos peso para carregar." data-scores="provedor:2">
+                <span><b>A)</b> Ter menos peso para carregar.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q9" value="1" data-answer="Me sentir mais conectado comigo e com as pessoas." data-scores="desconectado:2">
+                <span><b>B)</b> Me sentir mais conectado comigo e com as pessoas.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q9" value="2" data-answer="Continuar evoluindo emocionalmente." data-scores="lugar:2">
+                <span><b>C)</b> Continuar evoluindo emocionalmente.</span>
+              </label>
+              <label class="option">
+                <input type="radio" name="q9" value="3" data-answer="Ter mais confiança em mim mesmo." data-scores="aprovacao:2">
+                <span><b>D)</b> Ter mais confiança em mim mesmo.</span>
+              </label>
+            </div>
+          </article>
+            <div class="result-button-wrap"><button type="button" class="btn check-btn" id="checkResultButton">Ver meu resultado</button></div>
+            <div class="error" id="errorMessage">Responda todas as perguntas para liberar sua análise.</div>
+            <div class="result-box" id="resultBox">
+              <h2>O lugar emocional que apareceu com mais força em você foi:</h2>
+              <div class="mini-result">
+                <p><strong>Etapa da Jornada Masculina:</strong> <span id="primaryResult"></span></p>
+                <p><strong>Lugar emocional identificado:</strong> <span id="primaryPlace"></span></p>
+                <p><strong>O que também apareceu:</strong> <span id="secondaryResult"></span></p>
+              </div>
+              <p class="truth" id="resultTruth"></p>
+              <p>Suas respostas mostram que existe um lugar emocional influenciando suas escolhas, seus relacionamentos e a forma como você tem conduzido sua vida.</p>
+              <p>Para receber sua devolutiva completa e entender o próximo passo da sua jornada, clique no botão abaixo e envie suas respostas pelo WhatsApp.</p>
+              <a class="btn whatsapp" id="whatsappButton" target="_blank" rel="noopener">Quero receber minha devolutiva completa</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section class="section about">
+      <div class="wrap">
+        <div class="panel">
+          <h2>Quem criou este diagnóstico?</h2>
+          <div class="copy">
+            <p>Sou <strong>Evandro Favoretto</strong>, criador do <strong>Método O Seu Lugar®</strong>.</p>
+            <p>Nos últimos anos tenho ajudado homens e mulheres a compreenderem de qual lugar emocional estão conduzindo suas vidas, seus relacionamentos e suas escolhas.</p>
+            <p>Este diagnóstico foi desenvolvido para ajudar homens a identificarem de qual lugar emocional estão vivendo sua masculinidade hoje.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-brand">Diagnóstico O Seu Lugar® — Jornada Masculina</div>
+      <p>Criado por <strong>Evandro Favoretto</strong></p>
+      <p><strong>Método O Seu Lugar®</strong></p>
+      <p>Não existe homem perfeito. Existe o homem que reconhece de qual lugar está vivendo sua vida e assume a responsabilidade de transformar aquilo que já não faz sentido.</p>
+    </div>
+  </footer>
+  <script>
+    const WHATSAPP_NUMBER = "5549998110445";
+    const resultsInfo = {
+      aprovacao: { label:"Homem em Busca de Aprovação", place:"Lugar de Criança", truth:"Você sabe que tem capacidade para avançar, mas ainda percebe que algumas escolhas podem estar sendo influenciadas pela necessidade de ser aceito, reconhecido ou aprovado pelos outros." },
+      desconectado: { label:"Homem Desconectado", place:"Distância Silenciosa", truth:"Você tem coisas que gostaria de dizer, mas acaba guardando tudo para si. E quanto mais guarda, mais sozinho pode se sentir." },
+      guerreiro: { label:"Guerreiro Ferido", place:"Defesa e Reatividade", truth:"Você aprendeu a se proteger tão bem que, muitas vezes, ninguém consegue acessar quem você realmente é." },
+      provedor: { label:"Provedor Exausto", place:"Salvador", truth:"Você sente que precisa carregar mais peso do que deveria e que, se parar, tudo pode desmoronar." },
+      lugar: { label:"Homem no Seu Lugar", place:"Caminho de Retorno ao Lugar Adulto", truth:"Você já iniciou um movimento que muitos homens nunca fazem: assumir responsabilidade pela própria história e retornar para o seu lugar." }
+    };
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const errorMessage = document.getElementById("errorMessage");
+    const resultBox = document.getElementById("resultBox");
+    const primaryResultEl = document.getElementById("primaryResult");
+    const primaryPlaceEl = document.getElementById("primaryPlace");
+    const secondaryResultEl = document.getElementById("secondaryResult");
+    const resultTruthEl = document.getElementById("resultTruth");
+    const whatsappButton = document.getElementById("whatsappButton");
+    const checkResultButton = document.getElementById("checkResultButton");
+
+    function parseScores(scoreString) {
+      const scores = {};
+      scoreString.split(";").forEach(item => {
+        const [key, value] = item.split(":");
+        scores[key] = Number(value);
+      });
+      return scores;
+    }
+    function getAnswers() {
+      const questionEls = document.querySelectorAll(".question");
+      return Array.from(questionEls).map((question, qIndex) => {
+        const selected = question.querySelector(`input[name="q${qIndex}"]:checked`);
+        const qText = question.querySelector("h3").textContent.trim();
+        if (!selected) return null;
+        const letter = String.fromCharCode(65 + Number(selected.value));
+        return { question: qText, answer: selected.dataset.answer, scores: parseScores(selected.dataset.scores), letter };
+      });
+    }
+    function updateProgress() {
+      const answers = getAnswers();
+      const answered = answers.filter(Boolean).length;
+      const total = answers.length;
+      progressText.textContent = `${answered} de ${total} respondidas`;
+      progressBar.style.width = `${(answered / total) * 100}%`;
+      errorMessage.style.display = "none";
+    }
+    function calculateScores(answers) {
+      const scores = { aprovacao:0, desconectado:0, guerreiro:0, provedor:0, lugar:0 };
+      answers.forEach(answer => {
+        Object.entries(answer.scores).forEach(([key, value]) => { scores[key] += value; });
+      });
+      const sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+      return { scores, primary: sorted[0][0], secondary: sorted[1][0] };
+    }
+    function showResult() {
+      const answers = getAnswers();
+      if (!answers.every(Boolean)) {
+        resultBox.style.display = "none";
+        errorMessage.style.display = "block";
+        errorMessage.scrollIntoView({ behavior:"smooth", block:"center" });
+        return;
+      }
+      const result = calculateScores(answers);
+      const primary = resultsInfo[result.primary];
+      const secondary = resultsInfo[result.secondary];
+      primaryResultEl.textContent = primary.label;
+      primaryPlaceEl.textContent = primary.place;
+      secondaryResultEl.textContent = `${secondary.label} — ${secondary.place}`;
+      resultTruthEl.textContent = primary.truth;
+      whatsappButton.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage(answers, result))}`;
+      errorMessage.style.display = "none";
+      resultBox.style.display = "block";
+      resultBox.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
+    function buildWhatsAppMessage(answers, result) {
+      const primary = resultsInfo[result.primary];
+      const secondary = resultsInfo[result.secondary];
+      const answersText = answers.map((item, index) => `Pergunta ${index + 1}: ${item.letter}) ${item.answer}`).join("\n");
+      return `Olá, quero receber minha devolutiva completa do Diagnóstico O Seu Lugar® — Jornada Masculina.
+
+Minhas respostas foram:
+
+${answersText}
+
+Resultado calculado pela página:
+Etapa da Jornada Masculina: ${primary.label}
+Lugar emocional identificado: ${primary.place}
+O que também apareceu: ${secondary.label} — ${secondary.place}`;
+    }
+    document.querySelectorAll(".option input").forEach(input => {
+      input.addEventListener("change", () => {
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(item => item.closest(".option").classList.remove("selected"));
+        input.closest(".option").classList.add("selected");
+        updateProgress();
+      });
+    });
+    checkResultButton.addEventListener("click", showResult);
+    whatsappButton.addEventListener("click", (event) => {
+      if (!getAnswers().every(Boolean)) {
+        event.preventDefault();
+        errorMessage.style.display = "block";
+      }
+    });
+    updateProgress();
+  </script>
+</body>
+</html>
