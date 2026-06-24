@@ -187,7 +187,7 @@
             <h3>Quando algo dá errado na sua vida, qual costuma ser sua reação?</h3>
             <div class="options">
               <label class="option">
-                <input type="radio" name="q0" value="0" data-answer="Resolver sozinho e não incomodar ninguém." data-category="sobrecarga" data-scores="provedor:3;guerreiro:1">
+                <input type="radio" name="q0" value="0" data-answer="Resolver sozinho e não incomodar ninguém." data-category="sobrecarga defesa" data-scores="provedor:3;guerreiro:1">
                 <span><b>A)</b> Resolver sozinho e não incomodar ninguém.</span>
               </label>
               <label class="option">
@@ -257,7 +257,7 @@
                 <span><b>A)</b> Se afasta.</span>
               </label>
               <label class="option">
-                <input type="radio" name="q3" value="1" data-answer="Reage ou se irrita." data-scores="guerreiro:2">
+                <input type="radio" name="q3" value="1" data-answer="Reage ou se irrita." data-scores="guerreiro:4" data-category="defesa">
                 <span><b>B)</b> Reage ou se irrita.</span>
               </label>
               <label class="option">
@@ -297,7 +297,7 @@
             <h3>Quando precisa tomar uma decisão importante:</h3>
             <div class="options">
               <label class="option">
-                <input type="radio" name="q5" value="0" data-answer="Assumo tudo sozinho." data-category="sobrecarga" data-scores="provedor:3;guerreiro:1">
+                <input type="radio" name="q5" value="0" data-answer="Assumo tudo sozinho." data-category="sobrecarga defesa" data-scores="provedor:3;guerreiro:1">
                 <span><b>A)</b> Assumo tudo sozinho.</span>
               </label>
               <label class="option">
@@ -323,7 +323,7 @@
                 <span><b>A)</b> Evito falar sobre isso.</span>
               </label>
               <label class="option">
-                <input type="radio" name="q6" value="1" data-answer="Só demonstro quando chego ao limite." data-scores="guerreiro:1;desconectado:1">
+                <input type="radio" name="q6" value="1" data-answer="Só demonstro quando chego ao limite." data-scores="guerreiro:3;desconectado:1" data-category="defesa">
                 <span><b>B)</b> Só demonstro quando chego ao limite.</span>
               </label>
               <label class="option">
@@ -345,7 +345,7 @@
                 <span><b>A)</b> Se eu não resolver, ninguém resolve.</span>
               </label>
               <label class="option">
-                <input type="radio" name="q7" value="1" data-answer="Não gosto de mostrar minhas fraquezas." data-scores="guerreiro:2">
+                <input type="radio" name="q7" value="1" data-answer="Não gosto de mostrar minhas fraquezas." data-scores="guerreiro:4" data-category="defesa">
                 <span><b>B)</b> Não gosto de mostrar minhas fraquezas.</span>
               </label>
               <label class="option">
@@ -483,8 +483,10 @@
 
       let sorted = Object.entries(scores).sort((a,b) => b[1] - a[1]);
 
-      const overloadCount = answers.filter(answer => answer.category === "sobrecarga").length;
-      const disconnectionCount = answers.filter(answer => answer.category === "desconexao").length;
+      const overloadCount = answers.filter(answer => answer.category.includes("sobrecarga")).length;
+      const disconnectionCount = answers.filter(answer => answer.category.includes("desconexao")).length;
+
+      const defenseCount = answers.filter(answer => answer.category.includes("defesa")).length;
 
       let primary = sorted[0][0];
 
@@ -493,6 +495,14 @@
       // ou resolver tudo sozinho, o resultado principal deve ser Provedor Exausto.
       if (overloadCount >= 4) {
         primary = "provedor";
+      }
+
+      // Regra de predominância do Guerreiro Ferido:
+      // Se houver 3 ou mais sinais de defesa, proteção emocional, reatividade
+      // ou dificuldade de mostrar vulnerabilidade, prioriza Guerreiro Ferido.
+      // Essa regra só não passa por cima do Provedor quando a sobrecarga estiver muito alta.
+      if (defenseCount >= 3 && overloadCount < 4) {
+        primary = "guerreiro";
       }
 
       // Resultado secundário:
@@ -506,7 +516,11 @@
         secondary = "desconectado";
       }
 
-      return { scores, primary, secondary, overloadCount, disconnectionCount };
+      if (primary === "guerreiro" && disconnectionCount >= 2) {
+        secondary = "desconectado";
+      }
+
+      return { scores, primary, secondary, overloadCount, disconnectionCount, defenseCount };
     }
 
     function showResult() {
